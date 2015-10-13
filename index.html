@@ -14,11 +14,15 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-        $('.branding .main').velocity("transition.fadeIn");
+        $('.listing').css('display', 'none');
+        // $('.branding .main').velocity("transition.fadeIn");
+        $('.hero').velocity("transition.fadeIn", function() {
+            $('.listing').velocity("transition.slideLeftIn", { duration: 500, stagger: 150 });
+        });
 
         var loadingSequence = []
 
-        $('.listing').velocity("transition.slideLeftIn", { duration: 500, stagger: 150 });
+        
     });
   </script>
 
@@ -39,6 +43,12 @@
     
     html, body {
       height: 100%;
+    }
+
+    html, button, input, select, textarea,
+    .pure-g [class *= "pure-u"] {
+        /* Set your content font stack here: */
+        font-family: Lato, sans-serif;
     }
     
     .pure-g > div {
@@ -79,17 +89,40 @@
         text-transform: uppercase;
     }
 
+    .filters {
+    }
+
+    .filter {
+        text-transform: uppercase;
+        font-weight: 200;
+        font-size: 0.8em;
+    }
+
+    .filter input[type=text] {
+        background: none;
+        border: none;
+        border-bottom: 1px dashed #ffffff;
+        width: 50%;
+    }
+
     .content {
         background: #EEF2F6;
         border-right: 1px solid #ffffff;
     }
 
-    .heading {
+    .hero .heading {
         font-family: "Playfair Display", sans-serif;
         font-size: 2em;
         color: #000000;
         margin-top: 1em;
         margin-left: 1em;
+    }
+
+    .hero .sub {
+        font-family: "Playfair Display", sans-serif;
+        margin-left: 2em;
+        margin-top: 0.5em;
+        color: #8E8E8E;
     }
 
     .listings {
@@ -177,7 +210,6 @@
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 100px;
         border-bottom-right-radius: 100px;
-
     }
   </style>
 
@@ -188,11 +220,18 @@
             <div class="branding">
                 <span class="main">SeedFeed</span>
             </div>
+
+            <div class="filters">
+                <div class="filter">
+                    Location: <input type="text" />
+                </div>
+            </div>
         </div>
         <div class="content pure-u-1 pure-u-md-5-6">
             <div class="hero pure-g">
                 <div class="pure-u-21-24" style="min-height: 100px;">
-                    <div class="heading">View Open Investments</div>
+                    <div class="heading">Open Investments</div>
+                    <div class="sub">Use the filters on the left sidebar to refine your search.</div>
                 </div>
             </div>
             <div class="listings pure-g">
