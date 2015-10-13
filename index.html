@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SeedFeed</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.branding .main').velocity("transition.fadeIn");
+
+        var loadingSequence = []
+
+        $('.listing').velocity("transition.slideLeftIn", { duration: 500, stagger: 150 });
+    });
+  </script>
+
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+      <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>  
+  <style>
+    
+    html, body {
+      height: 100%;
+    }
+    
+    .pure-g > div {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .max-height {
+      min-height: 100%;
+    }
+
+    .sidebar {
+        background: linear-gradient(#2C292F, #3C3842);
+        border-right: 1px solid #292929;
+        color: #ffffff;
+    }
+
+    .branding {
+        margin: 2em 0;
+        text-align: center;
+    }
+
+    .branding .sub {
+        display: block;
+        position: relative;
+        right: 1em;
+        color: #a3a3a3;
+        font-family: "Courgette", serif;
+    }
+
+    .branding .main{
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        color: #fff;
+        margin-top: 0;
+        padding: 0.5em 0.8em;
+        text-transform: uppercase;
+    }
+
+    .content {
+        background: #EEF2F6;
+        border-right: 1px solid #ffffff;
+    }
+
+    .heading {
+        font-family: "Playfair Display", sans-serif;
+        font-size: 2em;
+        color: #000000;
+        margin-top: 3em;
+        margin-left: 1em;
+    }
+
+    .listings {
+        padding: 1em;
+    }
+
+    .listing {
+        min-height: 15em;
+        background: #ffffff;
+        border-radius: 5px;
+        -webkit-box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        -moz-box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        border: 1px solid #BFBFBF;
+        margin-right: 1em;
+        margin-bottom: 1em;
+    }
+
+    .listing .title {
+        text-align: center;
+        margin: 1em 0;
+        font-size: 1.3em;
+        color: #322F36;
+        font-family: Lato, sans-serif;
+        font-weight: 300;
+    }
+
+    .listing .image {
+        background: black;
+        min-height: 8em;
+        position: relative;
+    }
+
+    .listing .more-info-container {
+        margin-top: 1em;
+    }
+
+    .listing .more-info-container > div {
+        text-align: center;
+        font-size: 1.2em;
+        color: #848484;
+    }
+
+    .listing .more-info-container > div i {
+        display: block;
+    }
+
+    .listing .more-info-container > div .icon {
+        font-size: 0.8em;
+        display: block
+    }
+
+    .listing .more-info-container > div .sub {
+        font-size: 0.1em;
+        font-family: Lato;
+        text-transform: uppercase;
+        font-weight: 700;
+        position: relative;
+        bottom: 5px;
+        color: #636363;
+    }
+
+    .progress {
+        color: #FFFFFF;
+        font-family: Lato, sans-serif;
+        font-weight: 500;
+        letter-spacing: 1px;
+        font-size: 0.8em;
+        text-align: center;
+        padding-top: 6.5em;
+    }
+
+    .loading-outer {
+        width: 80%;
+        font-size: 0.5em;
+        background: rgba(0, 0, 0, 0.8);
+        position: absolute;
+        bottom: 10px;
+        margin-left: 10%;
+        border-radius: 100px;
+    }
+
+    .loading-inner {
+        background:#7061EC;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        border-bottom-right-radius: 100px;
+
+    }
+  </style>
+
+</head>
+<body>
+    <div class="max-height pure-g">
+        <div class="sidebar pure-u-1 pure-u-md-1-6">
+            <div class="branding">
+                <span class="main">SeedFeed</span>
+            </div>
+        </div>
+        <div class="content pure-u-1 pure-u-md-5-6">
+            <div class="hero pure-g">
+                <div class="pure-u-21-24" style="min-height: 300px; background: url('skyline.png');">
+                    <div class="heading">View Open Investments</div>
+                </div>
+            </div>
+            <div class="listings pure-g">
+                <div class="pure-u-1 pure-sm-1-2 pure-u-md-7-24 listing">
+                    <div class="title">436-442 East 13th Street</div>
+                    <div class="image" style="background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('http://therealdeal.com/wp-content/uploads/2013/10/12East13thst1.jpg'); background-size: 100%;">
+                        <div class="progress">
+                            $500,000 of $615,000
+                        </div>
+                        <div class="loading-outer">
+                            <div class="loading-inner" style="width: 85%">
+                            &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more-info-container pure-g">
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-building"></i>
+                            <span class="sub">Mixed Use</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-puzzle-piece"></i>
+                            <span class="sub">Equity</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <span class="icon">12%</span>
+                            <span class="sub">IRR</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <span class="icon">2 Years</span>
+                            <span class="sub">Hold period</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-sm-1-2 pure-u-md-7-24 listing">
+                    <div class="title">436-442 East 13th Street</div>
+                    <div class="image" style="background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('http://therealdeal.com/wp-content/uploads/2013/10/12East13thst1.jpg'); background-size: 100%;">
+                        <div class="progress">
+                            $500,000 of $615,000
+                        </div>
+                        <div class="loading-outer">
+                            <div class="loading-inner" style="width: 85%">
+                            &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more-info-container pure-g">
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-building"></i>
+                            <span class="sub">Mixed Use</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-puzzle-piece"></i>
+                            <span class="sub">Equity</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-line-chart"></i>
+                            <span class="sub">Something</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-thumbs-up"></i>
+                            <span class="sub">Like</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-sm-1-2 pure-u-md-7-24 listing">
+                    <div class="title">436-442 East 13th Street</div>
+                    <div class="image" style="background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('http://therealdeal.com/wp-content/uploads/2013/10/12East13thst1.jpg'); background-size: 100%;">
+                        <div class="progress">
+                            $500,000 of $615,000
+                        </div>
+                        <div class="loading-outer">
+                            <div class="loading-inner" style="width: 85%">
+                            &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more-info-container pure-g">
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-building"></i>
+                            <span class="sub">Mixed Use</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-puzzle-piece"></i>
+                            <span class="sub">Equity</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-line-chart"></i>
+                            <span class="sub">Something</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-thumbs-up"></i>
+                            <span class="sub">Like</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-sm-1-2 pure-u-md-7-24 listing">
+                    <div class="title">436-442 East 13th Street</div>
+                    <div class="image" style="background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('http://therealdeal.com/wp-content/uploads/2013/10/12East13thst1.jpg'); background-size: 100%;">
+                        <div class="progress">
+                            $500,000 of $615,000
+                        </div>
+                        <div class="loading-outer">
+                            <div class="loading-inner" style="width: 85%">
+                            &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more-info-container pure-g">
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-building"></i>
+                            <span class="sub">Mixed Use</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-puzzle-piece"></i>
+                            <span class="sub">Equity</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-line-chart"></i>
+                            <span class="sub">Something</span>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <i class="fa fa-thumbs-up"></i>
+                            <span class="sub">Like</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
