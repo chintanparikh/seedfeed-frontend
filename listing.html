@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SeedFeed</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.branding .main').velocity("transition.fadeIn");
+
+        var loadingSequence = []
+
+        $('.listing').velocity("transition.slideLeftIn", { duration: 500, stagger: 150 });
+    });
+  </script>
+
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+
+  <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+      <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>  
+  <style>
+    
+    html, body {
+      height: 100%;
+    }
+    
+    .pure-g > div {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .max-height {
+      min-height: 100%;
+    }
+
+    .sidebar {
+        background: linear-gradient(#2C292F, #3C3842);
+        border-right: 1px solid #292929;
+        color: #ffffff;
+    }
+
+    .branding {
+        margin: 2em 0;
+        text-align: center;
+    }
+
+    .branding .sub {
+        display: block;
+        position: relative;
+        right: 1em;
+        color: #a3a3a3;
+        font-family: "Courgette", serif;
+    }
+
+    .branding .main{
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        color: #fff;
+        margin-top: 0;
+        padding: 0.5em 0.8em;
+        text-transform: uppercase;
+    }
+
+    .content {
+        background: #EEF2F6;
+        border-right: 1px solid #ffffff;
+    }
+
+    .heading {
+        font-family: "Playfair Display", sans-serif;
+        font-size: 2em;
+        color: #000000;
+        margin-top: 3em;
+        margin-left: 1em;
+    }
+
+    .listings {
+        padding: 1em;
+    }
+
+    .listing {
+        min-height: 15em;
+        background: #ffffff;
+        border-radius: 5px;
+        -webkit-box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        -moz-box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        border: 1px solid #BFBFBF;
+        margin-right: 1em;
+        margin-bottom: 1em;
+    }
+
+    .listing .title {
+        text-align: center;
+        margin: 1em 0;
+        font-size: 1.3em;
+        color: #322F36;
+        font-family: Lato, sans-serif;
+        font-weight: 300;
+    }
+
+    .listing .image {
+        background: black;
+        min-height: 8em;
+        position: relative;
+    }
+
+    .listing .more-info-container {
+        margin-top: 1em;
+    }
+
+    .listing .more-info-container > div {
+        text-align: center;
+        font-size: 1.2em;
+        color: #848484;
+    }
+
+    .listing .more-info-container > div i {
+        display: block;
+    }
+
+    .listing .more-info-container > div .icon {
+        font-size: 0.8em;
+        display: block
+    }
+
+    .listing .more-info-container > div .sub {
+        font-size: 0.1em;
+        font-family: Lato;
+        text-transform: uppercase;
+        font-weight: 700;
+        position: relative;
+        bottom: 5px;
+        color: #fff;
+    }
+
+    .progress {
+        color: #FFFFFF;
+        font-family: Lato, sans-serif;
+        font-weight: 500;
+        letter-spacing: 1px;
+        font-size: 0.8em;
+        text-align: center;
+        padding-top: 6.5em;
+    }
+
+    .loading-outer {
+        width: 80%;
+        font-size: 0.5em;
+        background: rgba(0, 0, 0, 0.8);
+        position: absolute;
+        bottom: 10px;
+        margin-left: 10%;
+        border-radius: 100px;
+    }
+
+    .loading-inner {
+        background:#7061EC;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        border-bottom-right-radius: 100px;
+
+    }
+    .hero{
+        height:200px;
+    }
+    #cover{
+        border-radius: 5px;
+    }
+    .module {
+      background: 
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.7)
+        ),
+        url(https://s3.amazonaws.com/fundrise-content/cover-photos/fdcd1649-6847-453e-bdb0-59726f0d108b.jpg);
+      position: relative;
+      overflow: hidden;
+      background-size: cover;
+    }
+    .stats{
+        background-image:
+        linear-gradient(
+          to top right, 
+          #1E2F49, #145678
+        );
+        text-align: center;
+    }
+    .module > header {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 10px;
+    }
+    .module > header > h1 {
+      margin: 0;
+      color: white;
+      text-shadow: 0 1px 0 black;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+    .title {
+        color:#fff;
+        text-shadow: 0 1px 0 black;
+        margin-top: 190px;
+        padding: 10px;
+        font-family: sans-serif;
+        font-weight: 300;
+    }
+    .subtitle {
+        color:#CAC5C5;
+        text-shadow: 0 1px 0 black;
+        margin-top: -40px;
+        padding: 20px;
+        font-family: sans-serif;
+        font-weight: 300;
+    }
+    .subtitle2 {
+        color:#CAC5C5;
+        text-shadow: 0 1px 0 black;
+        padding: 20px;
+        font-family: sans-serif;
+        font-weight: 300;
+    }
+    .meter { 
+    height: 20px;  /* Can be anything */
+    position: relative;
+    background: #555;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    padding: 10px;
+    box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+    }
+    .meter > span {
+  display: block;
+  height: 100%;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: rgb(43,194,83);
+  background-image: linear-gradient(
+    center bottom,
+    rgb(43,194,83) 37%,
+    rgb(84,240,84) 69%
+  );
+  box-shadow: 
+    inset 0 2px 9px  rgba(255,255,255,0.3),
+    inset 0 -2px 6px rgba(0,0,0,0.8);
+  position: relative;
+  overflow: hidden;
+}
+.meter > span:after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-image: linear-gradient(
+    -45deg, 
+    rgba(255, 255, 255, .2) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255, 255, 255, .2) 50%, 
+    rgba(255, 255, 255, .2) 75%, 
+    transparent 75%, 
+    transparent
+  );
+  z-index: 1;
+  background-size: 50px 50px;
+  animation: move 2s linear infinite;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  overflow: hidden;
+}
+
+progress {
+        color: #FFFFFF;
+        font-family: Lato, sans-serif;
+        font-weight: 500;
+        letter-spacing: 1px;
+        font-size: 0.8em;
+        text-align: center;
+        padding-top: 6.5em;
+    }
+
+    .loading-outer {
+        width: 80%;
+        font-size: 0.5em;
+        background: rgba(93, 93, 93, 0.8);
+        position: absolute;
+        bottom: 10px;
+        margin-left: 3%;
+        border-radius: 100px;
+    }
+
+    .loading-inner {
+        background:#7061EC;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        border-bottom-right-radius: 100px;
+
+    }
+    .listings {
+        padding: 1em;
+    }
+
+    .listing {
+        min-height: 15em;
+        background: #ffffff;
+        border-radius: 5px;
+        -webkit-box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        -moz-box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        box-shadow: 2px 0px 3px 1px rgba(0,0,0,0.1);
+        border: 1px solid #BFBFBF;
+        margin-right: 1em;
+        margin-bottom: 1em;
+    }
+
+    .listing .title {
+        text-align: center;
+        margin: 0.5em 0;
+        font-size: 1.3em;
+        color: #322F36;
+        font-family: Lato, sans-serif;
+        font-weight: 300;
+    }
+
+    .listing .image {
+        background: black;
+        min-height: 8em;
+        position: relative;
+    }
+
+    .listing .more-info-container {
+        margin-top: 1em;
+    }
+
+    .listing .more-info-container > div {
+        text-align: center;
+        font-size: 1.2em;
+        color: #848484;
+    }
+
+    .listing .more-info-container > div i {
+        display: block;
+    }
+
+    .listing .more-info-container > div .icon {
+        font-size: 0.8em;
+        display: block
+    }
+
+    .listing .more-info-container > div .sub {
+        font-size: 0.1em;
+        font-family: Lato;
+        text-transform: uppercase;
+        font-weight: 700;
+        position: relative;
+        bottom: 5px;
+        color: #636363;
+    }
+
+    hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #BFBFBF;
+    margin: 1em 0;
+    padding: 0; 
+    }
+
+
+  </style>
+
+</head>
+<body>
+    <div class="max-height pure-g">
+        <div class="sidebar pure-u-1 pure-u-md-1-6">
+            <div class="branding">
+                <span class="main">SeedFeed</span>
+            </div>
+        </div>
+        <div class="content pure-u-1 pure-u-md-5-6">
+            <div class="pure-g" style="height:300px">
+                <div class="pure-u-1 pure-u-md-14-24 module">
+                    <h1 class="title">118th Street Manhattan</h1>
+                    <h4 class="subtitle">Manhattan Associates | New York, NY</h4>
+                    <h4 class="subtitle" style="float:right;margin-top:-80px;margin-right:100px">$300,000 of $500,000 (60%) </h4>
+                    <div class="loading-outer">
+                        <div class="loading-inner" style="width: 85%">
+                        &nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-10-24 " style="background-color:#333;">
+                    
+                </div>
+            </div>
+            <div class="listings pure-g">
+                <div class="pure-u-1 pure-sm-1-2 pure-u-md-14-24 listing">
+                    <div class="pure-g card">
+                        <div class="pure-u-1 pure-md-2/5">
+                            <h3 style=";font-weight:400;margin-bottom:5px;padding-left:20px;">Summary</h3>
+                            <hr/>
+                            <p style="font-weight:200;padding-left:30px;padding-right:30px;letter-spacing:1px;font-size:14px">This This investment is dependent upon the performance of Class 1 Bonds for 3 World Trade Center, a 2.5 million square foot class A ground-up office development by Silverstein Properties in downtown New York City. Investors in the offering will be investing in a Company which holds the Class 1 Bonds.
+                            <br/><br/>
+                            The Class 1 Bonds represent the most senior portion of capital in the project or $1.08 Billion of the $2.49 billion total project cost, approximately 43% LTC.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-sm-1-2 pure-u-md-14-24 listing">
+                    <div class="pure-g card">
+                        <div class="pure-u-1 pure-md-2/5">
+                            <h3 style=";font-weight:400;margin-bottom:5px;padding-left:20px;">Projected Returns</h3>
+                            <hr/>
+                            <p style="font-weight:200;padding-left:30px;padding-right:30px;letter-spacing:1px;font-size:14px">This This investment is dependent upon the performance of Class 1 Bonds for 3 World Trade Center, a 2.5 million square foot class A ground-up office development by Silverstein Properties in downtown New York City. Investors in the offering will be investing in a Company which holds the Class 1 Bonds.
+                            <br/><br/>
+                            The Class 1 Bonds represent the most senior portion of capital in the project or $1.08 Billion of the $2.49 billion total project cost, approximately 43% LTC.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-sm-1-2 pure-u-md-14-24 listing">
+                    <div class="pure-g card">
+                        <div class="pure-u-1 pure-md-2/5">
+                            <h3 style=";font-weight:400;margin-bottom:5px;padding-left:20px;">Comparable Properties</h3>
+                            <hr/>
+                            <p style="font-weight:200;padding-left:30px;padding-right:30px;letter-spacing:1px;font-size:14px">This This investment is dependent upon the performance of Class 1 Bonds for 3 World Trade Center, a 2.5 million square foot class A ground-up office development by Silverstein Properties in downtown New York City. Investors in the offering will be investing in a Company which holds the Class 1 Bonds.
+                            <br/><br/>
+                            The Class 1 Bonds represent the most senior portion of capital in the project or $1.08 Billion of the $2.49 billion total project cost, approximately 43% LTC.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
